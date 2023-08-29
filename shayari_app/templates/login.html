@@ -1,0 +1,49 @@
+{% extends 'index.html' %}
+
+{% block main %}
+
+ {% comment %} account create messages  {% endcomment %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-info">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+<br> <br>
+
+{% comment %} username and password wrong enter error messages  {% endcomment %}
+    {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {{error}} 
+                </div>           
+            {% endfor %}
+
+    {% endif %}
+
+<br>
+<center>
+        <div class="container-md">
+            <div class="row">
+                <div class="col">
+                    <form action="" method="POST" novalidate  id="signup">
+                        <h3 style="color: white;"> Login </h3> <br>
+                        {% csrf_token %}    
+                        {% for fm in form %}
+                            {{fm.label_tag}} {{fm}} {{fm.errors|striptags}} <br> <br>
+                        {% endfor %}
+
+                        <input type="submit" class="btn btn-danger" value="Login" id="sub"> <br>
+                        <p id="desc"> Don't have an account. <a href="{% url 'sign_up' %}"> Create </a> </p>
+                        
+
+                    </form>
+                </div>
+            </div>
+        </div>
+</center>
+
+    
+{% endblock %}
